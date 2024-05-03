@@ -17,8 +17,3 @@ class StringCalculator
         end
     end
 end
-
-calculator = StringCalculator.new
-puts calculator.add("") # Output: 0
-puts calculator.add("1") # Output: 1
-puts calculator.add("1,2,3") # Output: 6
