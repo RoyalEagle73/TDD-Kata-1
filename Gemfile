@@ -1,4 +1,7 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "rspec"
-gem "rdoc"
+source 'https://rubygems.org'
+
+gem 'rdoc'
+gem 'rspec'
+gem 'rubocop'
