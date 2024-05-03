@@ -11,6 +11,8 @@ class StringCalculator
 
     private
     def get_numbers_from_string(numbers)
+        ## Remove newlines from string
+        numbers.gsub("\n", "")
         numbers = numbers.split(',')
         numbers.map do |i|
              i.to_i 

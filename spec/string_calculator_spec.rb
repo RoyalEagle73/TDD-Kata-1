@@ -22,5 +22,10 @@ describe "String Calculator" do
                 expect(string_calculator.add("5,3,2")).to eql(10)
             end
         end
+        context "inputs a string with numbers and new line" do
+            it "returns 10" do
+                expect(string_calculator.add("5,3\n,2")).to eql(10)
+            end
+        end
     end
 end
