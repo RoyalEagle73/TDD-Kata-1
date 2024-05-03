@@ -2,7 +2,7 @@
 
 # A class to calculate sum of numbers from a given string.
 class StringCalculator
-  MAX_VALUE = 1000
+  MAX_ALLOWED_NUMBER = 1000
   DEFAULT_DILIMITER = ','
 
   # Returns a sum of the numbers in a given string.
@@ -13,45 +13,45 @@ class StringCalculator
   #
   # Ignores numbers above 1000 in string
   #
-  # @param [String<numbers_in_string>] A string containing numbers with delimiters.
+  # @param [String<input_string>] A string containing numbers with delimiters.
   #
   # @raise [ArgumentError] If the string contains one or more negative numbers.
   #
   # @return [Int] Returns the sum of numbers in string
-  def add(numbers_in_string)
+  def add(input_string)
     ## Returns 0 if input string is empty
-    return 0 if numbers_in_string.empty?
+    return 0 if input_string.empty?
 
     ## Collect numbers from string
-    numbers_list = get_numbers_from_string(numbers_in_string)
+    extracted_numbers = get_numbers_from_string(input_string)
 
     ## Check for negative numbers and raise error
-    negatives = numbers_list.select(&:negative?).map(&:to_s)
-    raise ArgumentError, "negative numbers not allowed #{negatives.join(', ')}" unless negatives.empty?
+    negative_numbers = extracted_numbers.select(&:negative?).map(&:to_s)
+    raise ArgumentError, "negative numbers not allowed #{negative_numbers.join(', ')}" unless negative_numbers.empty?
 
     ## Ignoring numbers above 1000
-    numbers_list = numbers_list.select { |num| num <= MAX_VALUE }
+    extracted_numbers = extracted_numbers.select { |num| num <= MAX_ALLOWED_NUMBER }
 
-    numbers_list.sum
+    extracted_numbers.sum
   end
 
   private
 
   # Helper method to get numbers from a string
-  def get_numbers_from_string(numbers)
+  def get_numbers_from_string(input_string)
     delimiter = DEFAULT_DILIMITER
 
     ## Filtering delimiter
-    if numbers.start_with?('//')
-      delimiter_line, numbers = numbers.lines(chomp: true)
+    if input_string.start_with?('//')
+      delimiter_line, input_string = input_string.lines(chomp: true)
       delimiter = delimiter_line.split('//', 2)[1].split(/\[|\]/)[1]
     end
 
     ## Remove newlines from string
-    numbers.gsub("\n", '')
+    input_string.gsub("\n", '')
 
     ## Splitting numbers according to delimiter
-    numbers = numbers.split(delimiter)
+    numbers = input_string.split(delimiter)
 
     ## Returning numbers as list
     numbers.map(&:to_i)
