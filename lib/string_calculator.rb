@@ -9,6 +9,8 @@ class StringCalculator
     #
     # An RuntimeError is raised if the string contains one or more negative number
     #
+    # Ignores numbers above 1000 in string
+    #
     # @param [String<numbers_in_string>] A string containing numbers with delimiters.
     #
     # @raise [RuntimeError] If the string contains one or more negative numbers.
@@ -21,11 +23,14 @@ class StringCalculator
         ## Return 0 if there are no numbers
         return 0 unless !numbers_list.empty?
 
-        # Check for negative numbers and raise error
+        ## Check for negative numbers and raise error
         negatives = numbers_list.select { |num| num < 0 }.map(&:to_s)
         raise "negative numbers not allowed #{negatives.join(', ')}" unless negatives.empty?
 
-        return numbers_list.sum    
+        ## Ignoring numbers above 1000
+        numbers_list = numbers_list.select { |num| num <= MAX_VALUE }
+
+        return numbers_list.sum
     end
 
     private

@@ -128,6 +128,8 @@
 
 <p>An RuntimeError is raised if the string contains one or more negative number</p>
 
+<p>Ignores numbers above 1000 in string</p>
+
 <p>@param [String&lt;numbers_in_string&gt;] A string containing numbers with delimiters.</p>
 
 <p>@raise [RuntimeError] If the string contains one or more negative numbers.</p>
@@ -135,7 +137,7 @@
 <p>@return [Int] Returns the sum of numbers in string</p>
 
           <div class="method-source-code" id="add-source">
-            <pre><span class="ruby-comment"># File lib/string_calculator.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/string_calculator.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add</span>(<span class="ruby-identifier">numbers_in_string</span>)
     <span class="ruby-comment">## Collect numbers from string</span>
     <span class="ruby-identifier">numbers_list</span> = <span class="ruby-identifier">get_numbers_from_string</span>(<span class="ruby-identifier">numbers_in_string</span>)
@@ -143,11 +145,14 @@
     <span class="ruby-comment">## Return 0 if there are no numbers</span>
     <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">numbers_list</span>.<span class="ruby-identifier">empty?</span>
 
-    <span class="ruby-comment"># Check for negative numbers and raise error</span>
+    <span class="ruby-comment">## Check for negative numbers and raise error</span>
     <span class="ruby-identifier">negatives</span> = <span class="ruby-identifier">numbers_list</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">num</span><span class="ruby-operator">|</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> }.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;negative numbers not allowed #{negatives.join(&#39;, &#39;)}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">negatives</span>.<span class="ruby-identifier">empty?</span>
 
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">numbers_list</span>.<span class="ruby-identifier">sum</span>    
+    <span class="ruby-comment">## Ignoring numbers above 1000</span>
+    <span class="ruby-identifier">numbers_list</span> = <span class="ruby-identifier">numbers_list</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">num</span><span class="ruby-operator">|</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">MAX_VALUE</span> }
+
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">numbers_list</span>.<span class="ruby-identifier">sum</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
