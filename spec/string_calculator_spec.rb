@@ -32,6 +32,11 @@ describe "String Calculator" do
                 expect(string_calculator.add("//[;]\n5;3;2")).to eql(10)
             end
         end
+        context "inputs a string with multiple delimiters" do
+            it "returns 10" do
+                expect(string_calculator.add("//[+++]\n5+++3+++2")).to eql(10)
+            end
+        end
         context "inputs a string with negative number" do
             it "raises an error" do
                 # expect(string_calculator.add("1,2,-3")).to eql(10)

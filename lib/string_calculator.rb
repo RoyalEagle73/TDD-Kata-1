@@ -21,8 +21,8 @@ class StringCalculator
         delimiter = DEFAULT_DILIMITER
         ## Filtering delimiter
         if numbers.start_with?("//")
-            delimiter, numbers = numbers.lines(chomp: true)
-            delimiter = delimiter[3]
+            delimiter_line, numbers = numbers.lines(chomp: true)
+            delimiter = delimiter_line.split("//", 2)[1].split(/\[|\]/)[1]
         end
         ## Remove newlines from string
         numbers.gsub("\n", "")
