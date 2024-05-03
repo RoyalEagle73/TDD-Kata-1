@@ -5,16 +5,21 @@ class StringCalculator
     def add(numbers_in_string)
         ## Collect numbers from string
         numbers_list = get_numbers_from_string(numbers_in_string)
-        if numbers_list.empty?
-            return 0
-        end
+
+        ## Return 0 if there are no numbers
+        return 0 unless !numbers_list.empty?
+
+        # Check for negative numbers and raise error
+        negatives = numbers_list.select { |num| num < 0 }.map(&:to_s)
+        raise "negative numbers not allowed #{negatives.join(', ')}" unless negatives.empty?
+
         return numbers_list.sum    
     end
 
     private
     def get_numbers_from_string(numbers)
         delimiter = DEFAULT_DILIMITER
-        ## Filtering delimiters
+        ## Filtering delimiter
         if numbers.start_with?("//")
             delimiter, numbers = numbers.lines(chomp: true)
             delimiter = delimiter[3]
