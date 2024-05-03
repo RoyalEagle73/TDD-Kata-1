@@ -4,9 +4,7 @@ require 'string_calculator'
 
 describe 'String Calculator' do
   ## Defining string calculator class
-  let(:string_calculator) do
-    StringCalculator.new
-  end
+  let(:string_calculator) { StringCalculator.new }
 
   describe '.add' do
     context 'Without delimiters' do
@@ -44,22 +42,24 @@ describe 'String Calculator' do
         end
       end
     end
+
     context 'With negative numbers' do
       context 'inputs a string with negative number' do
         it 'raises an error' do
           expect do
             string_calculator.add('1,2,-3')
-          end.to raise_error(RuntimeError, 'negative numbers not allowed -3')
+          end.to raise_error(ArgumentError, 'negative numbers not allowed -3')
         end
       end
       context 'inputs a string with multiple negative numbers' do
         it 'raises an error with multiple negative numbers in output' do
           expect do
             string_calculator.add('1,2,-3,-5')
-          end.to raise_error(RuntimeError, 'negative numbers not allowed -3, -5')
+          end.to raise_error(ArgumentError, 'negative numbers not allowed -3, -5')
         end
       end
     end
+
     context 'With numbers greater than 1000' do
       context 'inputs a string with numbers greater than 1000' do
         it 'ignores the larger number and returns 2' do
